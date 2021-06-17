@@ -2,7 +2,7 @@
 
 ### Intro
 
-Product Management API is designed for programmatic e-store product management.
+Product Management API is designed for programmatic e-store products management.
 Currently it supports the following functions:
    - Listing of available products;
    - Adding of new products;
@@ -20,9 +20,11 @@ The Product Management API is in its early development stage, in order to check
 its functionality just download the project, install the project dependencies,
 and simply start the development server by issuing the command:
 
-$ python manage.py runserver_plus --cert-file cert.crt
+    $ python manage.py runserver_plus --cert-file cert.crt
 
-Click on the entry link, and you will find yourself at the Product Management
+Click on the entry link or enter it to the browser window 
+(if you are running the project on localhost: https://127.0.0.1:8000/),
+and you will find yourself at the Product Management
 API documentation page. Here you will find all the information needed to 
 use the API.
 
@@ -54,5 +56,5 @@ Good news: You do not need to provide any user credentials when running test.
 
 All you need to do is to sit back and issue the command:
 
-$ pytest -v
+    $ pytest -v
 
