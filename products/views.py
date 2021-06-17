@@ -85,6 +85,8 @@ class ProductAddStockView(APIView):
         except Product.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
+            if 'stock_size' not in request.data:
+                return Response("Bad request data", status=status.HTTP_400_BAD_REQUEST)
             data = {
                 "stock_size": request.data["stock_size"],
                 "product_id": product_id
