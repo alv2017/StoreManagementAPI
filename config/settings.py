@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     # Apps
     'products.apps.ProductsConfig',
+    'orders.apps.OrdersConfig',
 
     # Third Party
     'rest_framework',
