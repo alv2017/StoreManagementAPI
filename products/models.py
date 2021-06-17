@@ -33,7 +33,7 @@ class Product(models.Model):
 
     @property
     def available_stock(self):
-        return ProductStock.objects.filter(product=self).latest('update_timestamp')
+        return self.stock.latest('update_timestamp')
 
 
 class ProductStock(models.Model):
