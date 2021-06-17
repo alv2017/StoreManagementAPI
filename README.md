@@ -33,13 +33,13 @@ use the API.
 In order to use the API you need to provide login credentials. At the moment
 the following login credentials has been set:
 
-1) User: admin, Password: admin123, Access: everything, including Django-Admin
+  - User: **admin**, Password: **admin123**, Access: everything, including Django-Admin
    
-2) User: regular_user, Password: good-day, Access: index page with API documentation
+  - User: **regular_user**, Password: **good-day**, Access: index page with API documentation
    
-3) User: staff_member, Password: good-day, Access: All the API endpoints
+  - User: **staff_member**, Password: **good-day**, Access: All the API endpoints
    
-4) User: store_admin, Password: good-day, Access: All the API endpoints
+  - User: **store_admin**, Password: **good-day**, Access: All the API endpoints
 
 All in all, in order to use API you need to log in (if you are using Browsable API),
 or you need to provide the user credentials when sending requests to the API.
