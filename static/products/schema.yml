@@ -1,0 +1,360 @@
+openapi: 3.0.2
+info:
+  title: 'Products Management API'
+  version: '0.0.1'
+  contact:
+    email: 'vitalija.alisauskaite@gmail.com'
+paths:
+  /:
+    get:
+      operationId: listApiRoots
+      description: 'API Entry Point: Product Management API Documentation. Please note that everyone can
+                    can see the API documentation page, but in order to use API
+                    you need to login as a member of staff, or as a member of the group store_administrators.
+                    The login details are provide on the project GitHub page.'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {}
+          description: 'Returns APIs list.'
+      tags:
+      - 'api-root'
+  /products/:
+    get:
+      operationId: listProducts
+      description: 'Products list'
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+          description: 'Returns list of products.'
+      tags:
+      - products
+    post:
+      operationId: createProduct
+      description: 'Create a new product'
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'New product has been created.'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Bad Request.'
+      tags:
+      - new-product
+  /products/{id}/:
+    get:
+      operationId: retrieveProduct
+      description: 'Product details: access particular product details by specifying the product id.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Displays details of the product with the specified id.'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Product with the specified ID does not exist.'
+      tags:
+      - product-details
+    put:
+      operationId: updateProduct
+      description: 'Product update: update product data. A product is specified by providing the product id.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Product data updated successfully.'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Bad request.'
+      tags:
+      - product-update
+    patch:
+      operationId: partialUpdateProduct
+      description: 'Partial product update. A product specified by providing the product id.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Product'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Product patched successfully.'
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+          description: 'Bad request.'
+      tags:
+      - product-patch
+    delete:
+      operationId: destroyProduct
+      description: 'Delete product. A product is specified by providing the product id.'
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: A unique integer value identifying this product.
+        schema:
+          type: string
+      responses:
+        '204':
+          description: 'Product deleted successfully.'
+      tags:
+      - product-delete
+  /products/stock/{product_id}/:
+    get:
+      operationId: retrieveProductStock
+      description: 'Display current stock size for a product with a given id.'
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        description: 'Product identifier'
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema: {}
+          description: 'Returns product stock data.'
+        '400':
+          content:
+            application/json:
+              schema: {}
+          description: 'Bad request.'
+        '404':
+          content:
+            application/json:
+              schema: {}
+          description: 'Product with the specified ID does not exist.'
+      tags:
+      - product-stock
+    post:
+      operationId: createProductStock
+      description: 'Create new product stock record. Please note that product stock is updated by creating
+                    new stock entries. If you need to update product stock size, you have
+                    to do that by creating a new stock record for the product.'
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        description: 'Product identifier'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'New stock record has been created.'
+        '400':
+          content:
+            application/json:
+              schema: {}
+          description: 'Bad request.'
+        '404':
+          content:
+            application/json:
+              schema: {}
+          description: 'Product with the specified ID does not exist.'
+      tags:
+      - new-product-stock-entry
+  /products/stock/add/{product_id}/:
+    post:
+      operationId: createProductAddStock
+      description: 'Creates new product stock record by adding specified quantity to the most recent stock size entry.'
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        description: 'Product identifier'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'New stock record created. The new stock size = initial stock size - stock addition quantity'
+        '400':
+          content:
+            application/json:
+              schema: {}
+          description: 'Bad request.'
+        '404':
+          content:
+            application/json:
+              schema: {}
+          description: 'Product with the specified ID does not exist.'
+      tags:
+      - product-add-stock
+  /products/stock/reduce/{product_id}/:
+    post:
+      operationId: createProductReduceStock
+      description: 'Creates new product stock record by subtracting a specified quantity
+                    from the most recent stock size entry.'
+      parameters:
+      - name: product_id
+        in: path
+        required: true
+        description: 'Product identifier'
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+          application/x-www-form-urlencoded:
+            schema: {}
+          multipart/form-data:
+            schema: {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema: {}
+          description: 'New stock record has been created.
+                        The new stock size = initail stock size - stock reduction quantity.'
+        '404':
+          content:
+            application/json:
+              schema: {}
+          description: 'Product with the specified ID does not exist.'
+      tags:
+      - product-reduce-stock
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+          readOnly: true
+          description: 'Product identifier, serves as primary key, is assigned automatically'
+        name:
+          type: string
+          maxLength: 128
+          description: 'Product name'
+        code:
+          type: string
+          maxLength: 10
+          description: 'Product code, it has to be unique for every single product'
+        price:
+          type: string
+          format: decimal
+          multipleOf: 0.01
+          maximum: 1000000
+          minimum: -1000000
+          description: 'Product price'
+        unit:
+          type: string
+          maxLength: 12
+          description: 'Product sales unit'
+        available_stock:
+          type: string
+          readOnly: true
+          description: 'Current stock of the product, this is a read-only value'
+      required:
+      - name
+      - code
+      - price
+      - unit
