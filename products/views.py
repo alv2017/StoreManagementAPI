@@ -50,7 +50,7 @@ class ProductStockView(APIView):
             print('Product does not exist')
             return Response(status=status.HTTP_404_NOT_FOUND)
         else:
-            current_stock = ProductStock.objects.filter(product__pk=product_id).latest('update_timestamp')
+            current_stock = product.stock.latest('update_timestamp')
             current_stock_serializer = ProductStockSerializer(current_stock)
             return Response(current_stock_serializer.data)
 
