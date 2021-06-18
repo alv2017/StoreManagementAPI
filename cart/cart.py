@@ -2,8 +2,10 @@ from decimal import Decimal
 from django.conf import settings
 from products.models import Product
 
+
 class CartProductQuantityException(Exception):
     pass
+
 
 class Cart(object):
     def __init__(self, request):
