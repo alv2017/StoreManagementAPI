@@ -9,25 +9,23 @@ class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem
         fields = (
-            'id',
-            'order_id',
             'product',
             'quantity',
             'cost'
         )
 
 
-class OrderCreateSerializer(serializers.ModelSerializer):
+class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('first_name', 'last_name',
+        fields = ('id',
+                  'first_name', 'last_name',
                   'email',
                   'address', 'postal_code', 'city', 'country',
                   'created', 'updated')
 
 
-class OrderDisplaySerializer(serializers.ModelSerializer):
-    id = serializers.ReadOnlyField()
+class OrderDetailSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True)
 
     class Meta:
@@ -38,5 +36,6 @@ class OrderDisplaySerializer(serializers.ModelSerializer):
                   'address', 'postal_code', 'city', 'country',
                   'created', 'updated',
                   'items',
-                  'total_cost',
-                  )
+                  'total_cost')
+
+
