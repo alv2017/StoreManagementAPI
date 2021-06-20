@@ -1,17 +1,10 @@
 import pytest
-import json
 from django.conf import settings
-from rest_framework.reverse import reverse
-from rest_framework import status
-from rest_framework.renderers import JSONRenderer
 from rest_framework.test import APITestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import APIClient
 from cart.cart import Cart
-from rest_framework.test import force_authenticate
 from products.models import Product
-from products.serializers import ProductSerializer
-from products.views import ProductListView, ProductDetailView
 
 factory = APIRequestFactory()
 client = APIClient()
