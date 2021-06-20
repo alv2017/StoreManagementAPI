@@ -7,6 +7,10 @@ class CartProductQuantityException(Exception):
     pass
 
 
+class ProductNotInCart(Exception):
+    pass
+
+
 class Cart(object):
     def __init__(self, request):
         """
@@ -14,7 +18,7 @@ class Cart(object):
         """
         self.session = request.session
         cart = self.session.get(settings.CART_SESSION_ID)
-        if not cart:
+        if cart is None:
             # save an empty cart in the session
             cart = self.session[settings.CART_SESSION_ID] = {}
         self.cart = cart
@@ -47,17 +51,32 @@ class Cart(object):
         """
         Add a product to the cart or update its quantity.
         """
+        if quantity < 1:
+            return
         product_id = str(product.id)
         if product_id not in self.cart:
             self.cart[product_id] = {'quantity': quantity, 'price': str(product.price)}
         else:
-            if self.cart[product_id]['quantity'] > quantity:
-                self.cart[product_id]['quantity'] += quantity
+             self.cart[product_id]['quantity'] += quantity
 
-        if self.cart[product_id]['quantity'] < product.available_stock:
+        if self.cart[product_id]['quantity'] <= product.available_stock.stock_size:
             self.save()
         else:
             raise CartProductQuantityException("Not enough products in stock.")
+
+    def subtract(self, product, quantity=1):
+        """
+        Subtract specified product quantity from cart
+        """
+        product_id = str(product.id)
+        if quantity < 1:
+            return
+        if self.cart[product_id]['quantity'] <= quantity:
+            return
+        if product_id not in self.cart:
+            return
+        self.cart[product_id]['quantity'] -= quantity
+        self.save()
 
     def remove(self, product):
         """
@@ -70,7 +89,7 @@ class Cart(object):
 
     def get_total_price(self):
         total_price = sum(Decimal(item['price']) * item['quantity'] for item in self.cart.values())
-        return str(total_price)
+        return total_price
 
     def clear(self):
         # remove cart from session
