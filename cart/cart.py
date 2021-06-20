@@ -7,10 +7,6 @@ class CartProductQuantityException(Exception):
     pass
 
 
-class ProductNotInCart(Exception):
-    pass
-
-
 class Cart(object):
     def __init__(self, request):
         """
