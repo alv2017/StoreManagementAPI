@@ -35,6 +35,9 @@ class Product(models.Model):
     def available_stock(self):
         return self.stock.latest('update_timestamp')
 
+    def add_stock(self, stock_size):
+        ProductStock.objects.create(product=self, stock_size=stock_size)
+
 
 class ProductStock(models.Model):
     product = models.ForeignKey(Product, related_name='stock', on_delete=models.CASCADE)
@@ -47,4 +50,5 @@ class ProductStock(models.Model):
 
     def __str__(self):
         return f"{self.stock_size} {self.product.unit}(s)"
+
 
