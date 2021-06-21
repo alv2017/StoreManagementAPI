@@ -17,6 +17,9 @@ class OrderListView(generics.ListAPIView):
     permission_classes = (HasGroupPermission,)
     name = 'orders'
 
+    permission_classes = (HasGroupPermission, )
+    required_groups = required_groups
+
 
 class OrderDetailView(generics.RetrieveAPIView):
     queryset = Order.objects.all()
@@ -25,8 +28,3 @@ class OrderDetailView(generics.RetrieveAPIView):
 
     permission_classes = (HasGroupPermission, )
     required_groups = required_groups
-
-
-
-
-
