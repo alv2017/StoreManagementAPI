@@ -47,9 +47,10 @@ class OrderItem(models.Model):
 
     def save(self, *args, **kwargs):
         isNewInstance = self.pk is None
-        super().save(*args, **kwargs)
         if isNewInstance:
             self.price = self.product.price
+        super().save(*args, **kwargs)
+
 
     @property
     def cost(self):
