@@ -29,6 +29,9 @@ class Order(models.Model):
         recent_status = self.statuses.latest('create_timestamp')
         return recent_status
 
+    def get_status_updates(self):
+        return self.statuses
+
     def save(self, *args, **kwargs):
         isNewInstance = self.pk is None
         super().save(*args, **kwargs)
