@@ -31,8 +31,11 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderStatusSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
     order_id = serializers.IntegerField()
     status = serializers.CharField(max_length=1)
+    status_name = serializers.CharField(read_only=True)
+    comment = serializers.CharField(max_length=255, allow_blank=True)
 
     def create(self, validated_data):
         return OrderStatus.objects.create(**validated_data)
