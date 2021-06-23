@@ -10,5 +10,6 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name="products/swagger-ui.html")),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
+    path('orders/', include('orders.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ] + static(settings.STATIC_URL)
