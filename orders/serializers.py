@@ -35,6 +35,7 @@ class OrderStatusSerializer(serializers.Serializer):
     order_id = serializers.IntegerField()
     status = serializers.CharField(max_length=1)
     status_name = serializers.CharField(read_only=True)
+    create_timestamp = serializers.DateTimeField()
     comment = serializers.CharField(max_length=255, allow_blank=True)
 
     def create(self, validated_data):

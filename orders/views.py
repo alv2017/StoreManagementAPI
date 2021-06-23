@@ -1,3 +1,4 @@
+from django.utils import timezone
 from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
@@ -75,9 +76,15 @@ class OrderStatusListCreateView(APIView):
             else:
                 comment = request.data["comment"]
 
+            if 'create_timestamp' not in request.data:
+                create_timestamp = timezone.now()
+            else:
+                create_timestamp = request.data["comment"]
+
             data = {
                 "order_id": order_id,
                 "status": request.data["status"],
+                "create_timestamp": create_timestamp,
                 "comment": comment,
             }
 
