@@ -13,6 +13,10 @@ required_groups = {
         'GET': ('store_administrators',),
         'HEAD': ('store_administrators',),
         'OPTIONS': ('store_administrators',),
+        'POST': ('store_administrators',),
+        'PUT': ('store_administrators',),
+        'PATCH': ('store_administrators',),
+        'DELETE': ('store_administrators',),
     }
 
 
