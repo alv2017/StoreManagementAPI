@@ -21,6 +21,10 @@ class Order(models.Model):
         return f'Order {self.id}'
 
     @property
+    def number_of_items(self):
+        return self.items.count()
+
+    @property
     def total_cost(self):
         if self.items.count() > 0:
             return sum(item.cost for item in self.items.all())
@@ -53,7 +57,6 @@ class OrderItem(models.Model):
         if isNewInstance:
             self.price = self.product.price
         super().save(*args, **kwargs)
-
 
     @property
     def cost(self):
