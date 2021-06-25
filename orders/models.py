@@ -30,11 +30,13 @@ class Order(models.Model):
             return sum(item.cost for item in self.items.all())
 
     def get_recent_status(self):
-        recent_status = self.statuses.latest('create_timestamp')
-        return recent_status
+        if OrderStatus.objects.filter(order_id=self.pk):
+            recent_status = self.statuses.latest('create_timestamp')
+            return recent_status
 
     def get_status_updates(self):
-        return self.statuses
+        if OrderStatus.objects.filter(order_id=self.pk):
+            return self.statuses
 
     def save(self, *args, **kwargs):
         isNewInstance = self.pk is None
