@@ -23,7 +23,7 @@ class Product(models.Model):
         ordering = ('code',)
 
     def __str__(self):
-        return f"{self.code}: {self.name}, {self.price} EUR"
+        return f"{self.code}: {self.name}, {self.price} USD"
 
     def save(self, *args, **kwargs):
         isNewInstance = self.pk is None

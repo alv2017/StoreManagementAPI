@@ -7,10 +7,13 @@ class ProductStockInline(admin.TabularInline):
     extra = 1
 
     def get_queryset(self, request):
-        product_id = request.resolver_match.kwargs.get('object_id')
-        qs = ProductStock.objects.filter(product__id=product_id)
-        latest_stock_update = qs.latest('update_timestamp')
-        return qs.filter(pk=latest_stock_update.pk)
+        if request.resolver_match.kwargs.get('object_id'):
+            product_id = request.resolver_match.kwargs.get('object_id')
+            qs = ProductStock.objects.filter(product__id=product_id)
+            latest_stock_update = qs.latest('update_timestamp')
+            return qs.filter(pk=latest_stock_update.pk)
+        else:
+            return super().get_queryset(request)
 
     def has_add_permission(self, request, obj):
         return True
