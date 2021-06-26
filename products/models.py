@@ -17,7 +17,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, validators=[validate_non_negative])
     unit = models.CharField(max_length=12)
     create_timestamp = models.DateTimeField(auto_now_add=True)
-    update_timestamp = models.DateTimeField(auto_now=True)
+    update_timestamp = models.DateTimeField(auto_now=True, verbose_name='Product Update Time')
 
     class Meta:
         ordering = ('code',)
