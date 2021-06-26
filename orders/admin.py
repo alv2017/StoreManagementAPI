@@ -4,6 +4,12 @@ from .models import Order, OrderItem, OrderStatus
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
+    extra = 1
+
+
+class OrderStatusInline(admin.TabularInline):
+    model = OrderStatus
+    extra = 1
 
 
 @admin.register(Order)
@@ -12,13 +18,6 @@ class OrderAdmin(admin.ModelAdmin):
                     'city', 'country',
                     'created', 'updated',)
     list_filter = ('created', 'updated',)
-    inlines = (OrderItemInline, )
+    inlines = (OrderItemInline, OrderStatusInline, )
     ordering = ('-id',)
-
-
-@admin.register(OrderStatus)
-class OrderStatus(admin.ModelAdmin):
-    list_display = ['order_id', 'status', 'create_timestamp']
-    list_filter = ['status']
-    ordering = ['-order_id', '-create_timestamp']
 
