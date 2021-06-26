@@ -40,7 +40,7 @@ class OrderDetailView(generics.RetrieveAPIView):
 
 
 class OrderStatusListCreateView(APIView):
-    name = 'order-status-updates'
+    name = 'order-status-list'
     permission_classes = (HasGroupPermission, )
     required_groups = required_groups
 
@@ -83,7 +83,7 @@ class OrderStatusListCreateView(APIView):
             if 'create_timestamp' not in request.data:
                 create_timestamp = timezone.now()
             else:
-                create_timestamp = request.data["comment"]
+                create_timestamp = request.data["create_timestamp"]
 
             data = {
                 "order_id": order_id,
@@ -92,14 +92,10 @@ class OrderStatusListCreateView(APIView):
                 "comment": comment,
             }
 
-            print(data)
-
             order_status_serializer = OrderStatusSerializer(data=data)
             if order_status_serializer.is_valid():
-                print(data)
                 order_status_serializer.save()
                 return Response(order_status_serializer.data, status=status.HTTP_201_CREATED)
             else:
                 return Response(order_status_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
