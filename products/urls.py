@@ -8,7 +8,7 @@ from .views import ProductStockView, ProductAddStockView, ProductReduceStockView
 urlpatterns = [
     path('', ProductListView.as_view(), name=ProductListView.name),
     path('<int:pk>/', ProductDetailView.as_view(), name=ProductDetailView.name),
-    path('stock/<int:product_id>/', ProductStockView.as_view(), name=ProductStockView.name),
-    path('stock/add/<int:product_id>/', ProductAddStockView.as_view(), name=ProductAddStockView.name),
-    path('stock/reduce/<int:product_id>/', ProductReduceStockView.as_view(), name=ProductReduceStockView.name),
+    path('<int:product_id>/stock/', ProductStockView.as_view(), name=ProductStockView.name),
+    path('<int:product_id>/stock/add/', ProductAddStockView.as_view(), name=ProductAddStockView.name),
+    path('<int:product_id>/stock/reduce/', ProductReduceStockView.as_view(), name=ProductReduceStockView.name),
 ]
