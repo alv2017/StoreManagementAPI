@@ -16,7 +16,8 @@ class OrderStatusInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     list_display = ('id', 'first_name', 'last_name', 'email',
                     'city', 'country',
-                    'created', 'updated',)
+                    'total_cost',
+                    'created')
     list_filter = ('created', 'updated',)
     inlines = (OrderItemInline, OrderStatusInline, )
     ordering = ('-id',)

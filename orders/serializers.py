@@ -21,13 +21,19 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
+    number_of_items = serializers.ReadOnlyField()
+    total_cost = serializers.ReadOnlyField()
+
     class Meta:
         model = Order
         fields = ('id',
                   'first_name', 'last_name',
                   'email',
                   'address', 'postal_code', 'city', 'country',
-                  'created', 'updated')
+                  'created', 'updated',
+                  'number_of_items',
+                  'total_cost')
 
 
 class OrderStatusSerializer(serializers.Serializer):
@@ -43,6 +49,8 @@ class OrderStatusSerializer(serializers.Serializer):
 
     def update(self, instance, validated_data):
         instance.status = validated_data.get('status', instance.status)
+        instance.comment = validated_data.get('comment', instance.comment)
+        instance.create_timestamp = validated_data('create_timestamp', instance.create_timestamp)
         instance.save()
         return instance
 
