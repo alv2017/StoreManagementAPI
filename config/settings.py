@@ -86,6 +86,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'ecommerce.sqlite3',
+        'TEST': {
+            'NAME': 'testdb.sqlite3',
+        }
     }
 }
 
