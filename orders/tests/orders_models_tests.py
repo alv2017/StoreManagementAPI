@@ -15,6 +15,7 @@ class OrderModelTest(APITestCase):
             'email': 'john.doe@example.com',
             'address': '53 Mortimer Road',
             'postal_code': 'N1 5AR',
+            'city': 'London',
             'country': 'United Kingdom'
         }
 
@@ -30,6 +31,7 @@ class OrderModelTest(APITestCase):
             email=self.order_creation_data['email'],
             address=self.order_creation_data['address'],
             postal_code=self.order_creation_data['postal_code'],
+            city=self.order_creation_data['city'],
             country=self.order_creation_data['country']
         )
         # A new order has been created, and the number of orders is 1
@@ -42,6 +44,7 @@ class OrderModelTest(APITestCase):
             email=self.order_creation_data['email'],
             address=self.order_creation_data['address'],
             postal_code=self.order_creation_data['postal_code'],
+            city=self.order_creation_data['city'],
             country=self.order_creation_data['country']
         )
         assert len(order) == 1
@@ -55,6 +58,7 @@ class OrderModelTest(APITestCase):
             order__email=self.order_creation_data['email'],
             order__address=self.order_creation_data['address'],
             order__postal_code=self.order_creation_data['postal_code'],
+            order__city=self.order_creation_data['city'],
             order__country=self.order_creation_data['country']
         )
         assert len(order_status) == 1
@@ -70,6 +74,7 @@ class OrderModelTest(APITestCase):
             email=self.order_creation_data['email'],
             address=self.order_creation_data['address'],
             postal_code=self.order_creation_data['postal_code'],
+            city=self.order_creation_data['city'],
             country=self.order_creation_data['country']
         )
         # add products to the newly created order
@@ -89,6 +94,7 @@ class OrderItemModelTest(APITestCase):
             'email': 'john.doe@example.com',
             'address': '53 Mortimer Road',
             'postal_code': 'N1 5AR',
+            'city': 'London',
             'country': 'United Kingdom'
         }
 
@@ -98,6 +104,7 @@ class OrderItemModelTest(APITestCase):
             email=self.order_creation_data['email'],
             address=self.order_creation_data['address'],
             postal_code=self.order_creation_data['postal_code'],
+            city=self.order_creation_data['city'],
             country=self.order_creation_data['country']
         )
 
@@ -127,6 +134,7 @@ class OrderStatusModelTest(APITestCase):
             'email': 'john.doe@example.com',
             'address': '53 Mortimer Road',
             'postal_code': 'N1 5AR',
+            'city': 'London',
             'country': 'United Kingdom'
         }
 
@@ -136,6 +144,7 @@ class OrderStatusModelTest(APITestCase):
             email=self.order_creation_data['email'],
             address=self.order_creation_data['address'],
             postal_code=self.order_creation_data['postal_code'],
+            city=self.order_creation_data['city'],
             country=self.order_creation_data['country']
         )
 
