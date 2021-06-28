@@ -99,3 +99,12 @@ class OrderStatusListCreateView(APIView):
             else:
                 return Response(order_status_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+class OrderStatusRetrieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = OrderStatus.objects.all()
+    serializer_class = OrderStatusSerializer
+    name = 'order-status'
+
+    permission_classes = (HasGroupPermission, )
+    required_groups = required_groups
+
