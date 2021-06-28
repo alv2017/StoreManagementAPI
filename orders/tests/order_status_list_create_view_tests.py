@@ -5,7 +5,7 @@ from rest_framework.renderers import JSONRenderer
 from rest_framework.test import APITestCase
 from rest_framework.test import APIRequestFactory
 from rest_framework.test import force_authenticate
-from orders.models import OrderStatus
+from orders.models import Order, OrderStatus
 from orders.serializers import OrderStatusSerializer
 from orders.views import OrderStatusListCreateView
 
@@ -19,7 +19,7 @@ class OrderStatusListCreateViewTest(APITestCase):
     url = reverse(view.name, kwargs={'order_id': str(order_id)})
     factory = APIRequestFactory()
 
-    def test_anonymous_cant_view_order_status_list(self):
+    def test_anonymous_can_not_view_order_status_list(self):
         view = self.view.as_view()
 
         request = self.factory.get(self.url)
@@ -31,7 +31,7 @@ class OrderStatusListCreateViewTest(APITestCase):
         # Response Status Code
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_anonymous_cant_create_new_order_status(self):
+    def test_anonymous_can_not_create_new_order_status(self):
         view = self.view.as_view()
 
         # let's try to update status by adding a new status ACCEPTED
@@ -50,7 +50,7 @@ class OrderStatusListCreateViewTest(APITestCase):
         # Response Status Code
         assert response.status_code == status.HTTP_401_UNAUTHORIZED
 
-    def test_regular_user_cant_view_order_status_list(self):
+    def test_regular_user_can_not_view_order_status_list(self):
         view = self.view.as_view()
         auth_user = self.regular_user
 
@@ -64,7 +64,7 @@ class OrderStatusListCreateViewTest(APITestCase):
         # Response Status Code
         assert response.status_code == status.HTTP_403_FORBIDDEN
 
-    def test_regular_user_cant_create_new_order_status(self):
+    def test_regular_user_can_not_create_new_order_status(self):
         view = self.view.as_view()
         auth_user = self.regular_user
 
@@ -183,4 +183,58 @@ class OrderStatusListCreateViewTest(APITestCase):
         current_status = status_order_entries_before.latest('create_timestamp')
         assert current_status.status == OrderStatus.ACCEPTED
 
+    def test_cancelled_order_can_not_be_updated(self):
+        view = self.view.as_view()
+        auth_user = self.store_administrator
 
+        # lets set order status to cancelled
+        test_order = Order.objects.get(pk=self.order_id)
+        OrderStatus.objects.create(order=test_order, status=OrderStatus.CANCELLED, comment='Cancelled by the customer.')
+        current_status = OrderStatus.objects.filter(order=test_order).latest('create_timestamp')
+        assert current_status.status == OrderStatus.CANCELLED
+
+        # let's update status by adding a new status ACCEPTED
+        new_status_data = {
+            "order_id": self.order_id,
+            "status": OrderStatus.SENT,
+            "comment": "Sent with DHL"
+        }
+
+        request = self.factory.post(self.url, new_status_data)
+        force_authenticate(request, user=auth_user)
+        response = view(request, order_id=self.order_id)
+        response.render()
+
+        # Response Status Code
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
+        # Response Content
+        assert response.content == b'"Cancelled order can not obtain a new status"'
+
+    def test_closed_order_can_not_be_updated(self):
+        view = self.view.as_view()
+        auth_user = self.store_administrator
+
+        # lets set order status to closed
+        test_order = Order.objects.get(pk=self.order_id)
+        OrderStatus.objects.create(order=test_order, status=OrderStatus.CLOSED, comment='Closed and completed.')
+        current_status = OrderStatus.objects.filter(order=test_order).latest('create_timestamp')
+        assert current_status.status == OrderStatus.CLOSED
+
+        # let's update status by adding a new status ACCEPTED
+        new_status_data = {
+            "order_id": self.order_id,
+            "status": OrderStatus.SENT,
+            "comment": "Sent with DHL"
+        }
+
+        request = self.factory.post(self.url, new_status_data)
+        force_authenticate(request, user=auth_user)
+        response = view(request, order_id=self.order_id)
+        response.render()
+
+        # Response Status Code
+        assert response.status_code == status.HTTP_403_FORBIDDEN
+
+        # Response Content
+        assert response.content == b'"Closed order can not obtain a new status"'
