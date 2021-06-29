@@ -43,7 +43,7 @@ and you will find yourself at the Store Mangement API entry page.
 The entry page was created using DjangoREST browsable API, I tried to make it intuitive to navigate
 and explore the API.
 
-# OpenAPI Schema
+### OpenAPI Schema
 
 If you run the project from the local machine using the default options, then browsable API
 can be found at: [https://127.0.0.1:8000/schema/](https://127.0.0.1:8000/schema/)
