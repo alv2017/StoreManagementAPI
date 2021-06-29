@@ -3,12 +3,13 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
 from django.views.generic import TemplateView
-from .views import ApiRoot
+from rest_framework.permissions import AllowAny
+from .views import ApiRootView, OpenApiSchemaView
 
 
 urlpatterns = [
-    path('', ApiRoot.as_view(), name='ApiRoot.name'),
-    path('schema/', TemplateView.as_view(template_name="openapi/swagger-ui.html"), name='openapi-schema'),
+    path('', ApiRootView.as_view(), name=ApiRootView.name),
+    path('schema/', OpenApiSchemaView.as_view(), name=OpenApiSchemaView.name),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
     path('orders/', include('orders.urls')),
