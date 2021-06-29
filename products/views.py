@@ -3,7 +3,6 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.response import Response
 from .models import Product
-from .models import ProductStock
 from .permissions import HasGroupPermission
 from .serializers import ProductSerializer
 from .serializers import ProductStockSerializer, IncreaseProductStockSerializer, DecreaseProductStockSerializer
