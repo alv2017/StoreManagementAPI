@@ -50,7 +50,7 @@ class OrderStatusSerializer(serializers.Serializer):
     def update(self, instance, validated_data):
         instance.status = validated_data.get('status', instance.status)
         instance.comment = validated_data.get('comment', instance.comment)
-        instance.create_timestamp = validated_data('create_timestamp', instance.create_timestamp)
+        instance.create_timestamp = validated_data.get('create_timestamp', instance.create_timestamp)
         instance.save()
         return instance
 
