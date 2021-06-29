@@ -2,12 +2,13 @@ from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import path, include
-from rest_framework.schemas import get_schema_view
 from django.views.generic import TemplateView
+from .views import ApiRoot
 
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="openapi/swagger-ui.html")),
+    path('', ApiRoot.as_view(), name='ApiRoot.name'),
+    path('schema/', TemplateView.as_view(template_name="openapi/swagger-ui.html"), name='openapi-schema'),
     path('admin/', admin.site.urls),
     path('products/', include('products.urls')),
     path('orders/', include('orders.urls')),
