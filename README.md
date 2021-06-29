@@ -1,22 +1,37 @@
-# PRODUCT MANAGEMENT API
+# STORE MANAGEMENT API
 
 ### Intro
 
-Product Management API is designed for programmatic e-store products management.
-Currently it supports the following functions:
-   - Listing of available products;
-   - Adding of new products;
+Store Management API is designed for programmatic e-store management.
+Currently, it supports product management and order status management functions.
+Please note that the person responsible for online store management, does not
+have access to order update/delete options. He/She can only preview orders,
+and update order status, to keep the customers informed about their orders.
+
+
+Products API:
+   - Product listing;
+   - Product details preview;  
+   - Addition of new products;
    - Update of existing products;
    - Deletion of redundant products;
    - Update of product stock;
 
-At the moment Product Management API supports the following authentications methods:
+Orders API:
+   - Order listing;
+   - Order details preview;
+   - Order status history preview;
+   - Order status preview, update, and deletion.
+
+   
+
+At the moment Store Management API supports the following authentications methods:
    1) Session authentication: It is used when working with Browsable API.
       Browsable API is provided for convenience to test the API functionality.
    2) Basic Authentication: It is used when working the actual API.
 
 
-The Product Management API is in its early development stage, in order to check
+The Store Management API is in its early development stage, in order to check
 its functionality just download the project, install the project dependencies,
 and simply start the development server by issuing the command:
 
@@ -24,9 +39,15 @@ and simply start the development server by issuing the command:
 
 Click on the entry link or enter it to the browser window 
 (if you are running the project on localhost: https://127.0.0.1:8000/),
-and you will find yourself at the Product Management
-API documentation page. Here you will find all the information needed to 
-use the API.
+and you will find yourself at the Store Mangement API entry page.
+The entry page was created using DjangoREST browsable API, I tried to make it intuitive to navigate
+and explore the API.
+
+# OpenAPI Schema
+
+If you run the project from the local machine using the default options, then browsable API
+can be found at: [https://127.0.0.1:8000/schema/](https://127.0.0.1:8000/schema/)
+
 
 ### Login Credentials
 
@@ -35,7 +56,9 @@ the following login credentials has been set:
 
   - User: **admin**, Password: **admin123**, Access: everything, including Django-Admin
    
-  - User: **regular_user**, Password: **good-day**, Access: index page with API documentation
+  - User: **regular_user**, Password: **good-day**, Access: index page and API schema.
+
+  - User: **anonymous**, Password: , Access: index page and API schema.
    
   - User: **staff_member**, Password: **good-day**, Access: All the API endpoints
    
