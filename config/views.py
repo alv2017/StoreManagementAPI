@@ -19,6 +19,7 @@ class ApiRootView(generics.GenericAPIView):
             'orders': reverse(OrderListView.name, request=request),
         })
 
+
 class OpenApiSchemaView(TemplateView):
     name = 'openapi-schema'
     template_name = "openapi/swagger-ui.html"
