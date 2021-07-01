@@ -143,7 +143,14 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Pagination
+DEFAULT_PAGE_SIZE = 100
+MAX_PAGE_SIZE = 250
+
 REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'config.pagination.LimitOffsetPaginationWithUpperBound',
+    'PAGE_SIZE': DEFAULT_PAGE_SIZE,
+    
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.FormParser',
@@ -167,4 +174,8 @@ REST_FRAMEWORK = {
 }
 
 # Groups
+
 STORE_ADMINISTRATORS_GROUP = 'store_administrators'
+
+
+
