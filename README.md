@@ -73,6 +73,19 @@ The project supports browsable API functionality, so if you find yourself
 in trouble, just type the endpoints urls directly into your browser, 
 and use the API from GUI.
 
+### Pagination
+
+API limits the number of items returned as a response to request.
+The default number of items that can be retrieved in one go equals to 100.
+The maximum number of items that can be retrieved equals to 250.
+
+**Request Example with Limit and Offset**
+
+GET: https://127.0.0.1/products/?limit=20&offset=5
+
+The request above is supposed to extract 20 products starting with the product number 6
+in a product list.
+
 ### Running Tests
 
 Good news: You do not need to provide any user credentials when running test.
