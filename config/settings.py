@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     # Third Party
     'rest_framework',
     'django_extensions',
+    'django_filters',
 
     # Django Built-In Apps
     'django.contrib.admin',
@@ -150,6 +151,12 @@ MAX_PAGE_SIZE = 250
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'config.pagination.LimitOffsetPaginationWithUpperBound',
     'PAGE_SIZE': DEFAULT_PAGE_SIZE,
+
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+        'rest_framework.filters.OrderingFilter',
+        'rest_framework.filters.SearchFilter',
+    ),
     
     'DEFAULT_PARSER_CLASSES': (
         'rest_framework.parsers.JSONParser',

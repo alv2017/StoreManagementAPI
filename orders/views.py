@@ -7,6 +7,7 @@ from .models import Order, OrderStatus
 from .serializers import OrderSerializer, OrderDetailSerializer
 from .serializers import OrderStatusSerializer, OrderStatusDisplaySerializer
 from .permissions import HasGroupPermission
+from .filters import OrderFilter
 
 
 required_groups = {
@@ -28,6 +29,19 @@ class OrderListView(generics.ListAPIView):
 
     permission_classes = (HasGroupPermission, )
     required_groups = required_groups
+
+    filter_class = OrderFilter
+
+    search_fields = (
+        '^last_name',
+        '=country'
+    )
+
+    ordering_fields = (
+        'last_name',
+        'country',
+        'created'
+    )
 
 
 class OrderDetailView(generics.RetrieveAPIView):

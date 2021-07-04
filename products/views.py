@@ -6,6 +6,7 @@ from .models import Product
 from .permissions import HasGroupPermission
 from .serializers import ProductSerializer
 from .serializers import ProductStockSerializer, IncreaseProductStockSerializer, DecreaseProductStockSerializer
+from .filters import ProductFilter
 
 
 required_groups = {
@@ -26,6 +27,19 @@ class ProductListView(generics.ListCreateAPIView):
 
     permission_classes = (HasGroupPermission, )
     required_groups = required_groups
+
+    filter_class = ProductFilter
+
+    search_fields = (
+        '$name',
+        '^code'
+    )
+
+    ordering_fields = (
+        'name',
+        'code',
+        'price'
+    )
 
 
 class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
